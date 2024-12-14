@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="icon/themify-icons/themify-icons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="img/small.png" />
+    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="CSS/header.css" />
+    <link rel="stylesheet" href="CSS/login.css" />
+    <title>| Viet Hotel</title>
+    <style>
+      .error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+      .error-input {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <header id="header">
+        <div class="menu_top">
+          <a href="index.html"><img src="img/small.png" alt="Logonav" /></a>
+          <ul id="nav">
+            <li><a href="index.html">Trang chủ</a></li>
+          </ul>
+          <div class="login-btn">
+            <a href="UILogin.html">Đăng nhập</a>
+          </div>
+        </div>
+      </header>
+
+      <div id="login">
+        <div class="login-banner">
+          <div class="uilogin">
+            <div class="login-top">
+              <h1>ĐĂNG KÝ TÀI KHOẢN</h1>
+            </div>
+            <form id="registerForm">
+              <div class="login-mid">
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Email"
+                  name="email"
+                />
+                <div id="emailError" class="error"></div>
+
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Mật khẩu"
+                  name="password"
+                />
+                <div id="passwordError" class="error"></div>
+
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  placeholder="Nhập lại mật khẩu"
+                  name="confirmPassword"
+                />
+                <div id="confirmPasswordError" class="error"></div>
+
+                <div class="login-bot">
+                  <input type="submit" value="Đăng ký" />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        // Xử lý đăng ký
+        document.getElementById("registerForm").addEventListener("submit", function (event) {
+          event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+          const confirmPassword = document.getElementById("confirmPassword").value.trim();
+
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+          document.querySelectorAll(".error").forEach((el) => (el.textContent = ""));
+          document.querySelectorAll("input").forEach((el) => el.classList.remove("error-input"));
+
+          let isValid = true;
+
+          if (!emailRegex.test(email)) {
+            isValid = false;
+            document.getElementById("emailError").textContent = "Email không hợp lệ.";
+            document.getElementById("email").classList.add("error-input");
+          }
+
+          if (!passwordRegex.test(password)) {
+            isValid = false;
+            document.getElementById("passwordError").textContent =
+              "Mật khẩu phải ít nhất 8 ký tự, bao gồm cả chữ và số.";
+            document.getElementById("password").classList.add("error-input");
+          }
+
+          if (password !== confirmPassword) {
+            isValid = false;
+            document.getElementById("confirmPasswordError").textContent =
+              "Nhập lại mật khẩu không khớp.";
+            document.getElementById("confirmPassword").classList.add("error-input");
+          }
+
+          if (isValid) {
+            // Lưu thông tin vào localStorage
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userPassword", password);
+
+            alert("Đăng ký thành công! Vui lòng đăng nhập.");
+            window.location.href = "UILogin.html"; // Chuyển hướng đến trang đăng nhập
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>

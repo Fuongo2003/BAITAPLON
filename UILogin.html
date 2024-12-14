@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="icon/themify-icons/themify-icons.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="img/small.png" />
+    <link rel="stylesheet" href="CSS/main.css" />
+    <link rel="stylesheet" href="CSS/header.css" />
+    <link rel="stylesheet" href="CSS/login.css" />
+    <title>| Viet Hotel</title>
+    <style>
+      .error {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 5px;
+      }
+      .error-input {
+        border: 1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main">
+      <header id="header">
+        <div class="menu_top">
+          <a href="index.html"><img src="img/small.png" alt="Logonav" /></a>
+          <ul id="nav">
+            <li><a href="index.html">Trang chủ</a></li>
+          </ul>
+          <div class="login-btn">
+            <a href="UIRegister.html">Đăng ký</a>
+          </div>
+        </div>
+      </header>
+
+      <div id="login">
+        <div class="login-banner">
+          <div class="uilogin">
+            <div class="login-top">
+              <img src="img/small.png" alt="Logonav" />
+              <h1>
+                ĐĂNG NHẬP VÀO <span style="color: #06aa2a">VIET HOTEL</span>
+              </h1>
+            </div>
+            <form id="loginForm">
+              <div class="login-mid">
+                <input
+                  type="text"
+                  id="email"
+                  placeholder="Email"
+                  name="email"
+                />
+                <div id="emailError" class="error"></div>
+
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="Mật khẩu"
+                  name="password"
+                />
+                <div id="passwordError" class="error"></div>
+              </div>
+              <div class="login-bot">
+                <input type="submit" value="Đăng nhập" />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
+          event.preventDefault(); // Ngăn chặn form gửi đi mặc định
+        
+          // Lấy giá trị từ các ô nhập liệu
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
+        
+          // Lấy dữ liệu từ localStorage
+          const savedEmail = localStorage.getItem("userEmail");
+          const savedPassword = localStorage.getItem("userPassword");
+        
+          // Xóa thông báo lỗi cũ
+          document.querySelectorAll(".error").forEach((el) => (el.textContent = ""));
+          document.querySelectorAll("input").forEach((el) => el.classList.remove("error-input"));
+        
+          let isValid = true;
+        
+          // Kiểm tra email
+          if (email !== savedEmail) {
+            isValid = false;
+            document.getElementById("emailError").textContent =
+              "Email không đúng hoặc không tồn tại.";
+            document.getElementById("email").classList.add("error-input");
+          }
+        
+          // Kiểm tra mật khẩu
+          if (password !== savedPassword) {
+            isValid = false;
+            document.getElementById("passwordError").textContent =
+              "Mật khẩu không đúng.";
+            document.getElementById("password").classList.add("error-input");
+          }
+        
+          // Nếu tất cả đều hợp lệ
+          if (isValid) {
+            alert("Đăng nhập thành công!");
+        
+            // Lưu trạng thái đã đăng nhập vào localStorage
+            localStorage.setItem("isLoggedIn", "true");
+        
+            // Chuyển hướng đến trang chính
+            window.location.href = "index.html";
+          }
+        });
+      </script>
+    </div>
+  </body>
+</html>
